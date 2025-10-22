@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
     try {
-        await mongoose.connect('mongodb://localhost:27017/food-view') 
+        await mongoose.connect(process.env.MONGODB_URI,) 
         .then(()=>{
             console.log("Connected to MongoDB successfully");
         })
