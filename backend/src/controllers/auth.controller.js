@@ -1,4 +1,5 @@
 const userModel = require('../models/user.model');
+const foodPartnerModel = require('../models/foodpartner.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 // User Registration Controller
@@ -77,10 +78,96 @@ const logoutUser = async (req, res) => {
     
 }
 
+
+
+
+
+// Food Partner Controllers can be added here in future
+
+// Food Partner Registration Controller
+ const registerFoodPartner = async (req, res) => {
+    const { username, email, password } = req.body;
+
+    const isFoodPartnerExist = await foodPartnerModel.findOne({ email: email });
+
+    if (isFoodPartnerExist) {
+        return res.status(400).json({ message: "Food Partner already exists with this email" });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const foodPartner = await foodPartnerModel.create({
+        username,
+        email,
+        password: hashedPassword
+    });
+
+     const token = jwt.sign({
+        id: foodPartner._id,
+    }, process.env.JWT_SECRET)
+
+    res.cookie("token", token);
+
+    await foodPartner.save();
+
+    res.status(201).json({
+         message: "Food Partner registered successfully",
+         foodPartner:{
+            _id: foodPartner._id,
+            email: foodPartner.email,
+            username: foodPartner.username,
+         } }); 
+
+    
+    
+}
+
+// Food Partner Login Controller
+    const loginFoodPartner = async (req, res) => {
+    const { email, password } = req.body;
+
+    const foodPartnerExist = await foodPartnerModel.findOne({
+        email: email,
+    });
+
+    if (!foodPartnerExist) {
+        return res.status(400).json({ message: "Food Partner does not exist" });
+
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, foodPartnerExist.password);
+
+    if (!isPasswordValid) {
+        return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    const token = jwt.sign({
+        id: foodPartnerExist._id,
+    }, process.env.JWT_SECRET)
+
+    res.cookie("token", token);
+
+    res.status(200).json({
+        message: "Login successful",
+        foodPartner: {
+            _id: foodPartnerExist._id,
+            email: foodPartnerExist.email,
+            username: foodPartnerExist.username,
+        }
+    });
+}
+
+// Food Partner Logout Controller
+const logoutFoodPartner = async (req, res) => {
+    res.clearCookie("token");
+    res.status(200).json({ message: "Logout successful" });
+}
 module.exports = {
     registerUser,
     loginUser,
     logoutUser,
+    registerFoodPartner,
+    loginFoodPartner,
+    logoutFoodPartner
 };
 
 
