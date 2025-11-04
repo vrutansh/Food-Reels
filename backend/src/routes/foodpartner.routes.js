@@ -5,7 +5,7 @@ const authMiddleware = require('../middleware/auth.middleware');
 
 
 // GET /api/food/foodpartner/:id [protected]
-router.get('/food-partner/:id',
+router.get('/:id',
     authMiddleware.authUserMiddleware,
     foodpartnerController.getFoodPartnerById
 );
