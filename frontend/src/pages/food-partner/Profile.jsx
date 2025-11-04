@@ -9,7 +9,7 @@ const Profile = () => {
     const [ videos, setVideos ] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/api/food-partner/${id}`, { withCredentials: true })
+        axios.get(`http://localhost:3000/api/foodpartner/${id}`, { withCredentials: true })
             .then(response => {
                 setProfile(response.data.foodPartner)
                 setVideos(response.data.foodPartner.foodItems)
@@ -26,7 +26,7 @@ const Profile = () => {
 
                     <div className="profile-info">
                         <h1 className="profile-pill profile-business" title="Business name">
-                            {profile?.username}
+                            {profile?.name}
                         </h1>
                         <p className="profile-pill profile-address" title="Address">
                             {profile?.address}
