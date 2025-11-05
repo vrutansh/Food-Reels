@@ -8,17 +8,20 @@ import FoodPartnerLogin from '../pages/auth/FoodPartnerLogin.jsx';
 import Home from '../pages/general/Home.jsx';
 import CreateFood from '../pages/food-partner/CreateFood.jsx';
 import Profile from '../pages/food-partner/Profile.jsx';
+import ChooseRegister from '../pages/auth/ChooseRegister.jsx';
+import BottomNav from '../components/BottomNav.jsx';
 const AppRoutes = () => {
   return (
     <div>
       
       <Router>
         <Routes >
+                <Route path="/register" element={<ChooseRegister />} />
                 <Route path="/user/register" element={<UserRegister />} />
                 <Route path="/user/login" element={<UserLogin />} />
                 <Route path="/food-partner/register" element={<FoodPartnerRegister />} />
                 <Route path="/food-partner/login" element={<FoodPartnerLogin />} />
-                <Route path="/" element={<Home/>} />
+                <Route path="/" element={<><Home /><BottomNav /></>} />
                 <Route path="create-food" element={<CreateFood/>} />
                 <Route path="/food-partner/:id" element={<Profile/>} />
         </Routes>
