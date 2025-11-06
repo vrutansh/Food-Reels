@@ -9,7 +9,7 @@ const Profile = () => {
     const [ videos, setVideos ] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/api/foodpartner/${id}`, { withCredentials: true })
+        axios.get(`http://localhost:3000/api/food-partner/${id}`, { withCredentials: true })
             .then(response => {
                 setProfile(response.data.foodPartner)
                 setVideos(response.data.foodPartner.foodItems)
@@ -37,11 +37,11 @@ const Profile = () => {
                 <div className="profile-stats" role="list" aria-label="Stats">
                     <div className="profile-stat" role="listitem">
                         <span className="profile-stat-label">total meals</span>
-                        <span className="profile-stat-value">{profile?.totalMeals}</span>
+                        <span className="profile-stat-value">{profile?.email}</span>
                     </div>
                     <div className="profile-stat" role="listitem">
                         <span className="profile-stat-label">customer served</span>
-                        <span className="profile-stat-value">{profile?.customersServed}</span>
+                        <span className="profile-stat-value">{profile?.phone}</span>
                     </div>
                 </div>
             </section>
@@ -67,4 +67,4 @@ const Profile = () => {
     )
 }
 
-export default Profile;
+export default Profile
