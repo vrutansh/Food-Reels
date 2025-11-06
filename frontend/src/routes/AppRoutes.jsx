@@ -10,6 +10,7 @@ import CreateFood from '../pages/food-partner/CreateFood.jsx';
 import Profile from '../pages/food-partner/Profile.jsx';
 import ChooseRegister from '../pages/auth/ChooseRegister.jsx';
 import BottomNav from '../components/BottomNav.jsx';
+import Saved from '../pages/general/Saved.jsx';
 const AppRoutes = () => {
   return (
     <div>
@@ -22,6 +23,7 @@ const AppRoutes = () => {
                 <Route path="/food-partner/register" element={<FoodPartnerRegister />} />
                 <Route path="/food-partner/login" element={<FoodPartnerLogin />} />
                 <Route path="/" element={<><Home /><BottomNav /></>} />
+                <Route path="/saved" element={<><Saved /><BottomNav /></>} />
                 <Route path="create-food" element={<CreateFood/>} />
                 <Route path="/food-partner/:id" element={<Profile/>} />
         </Routes>
