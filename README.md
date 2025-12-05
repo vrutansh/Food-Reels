@@ -52,7 +52,8 @@ By default, the backend runs on **http://localhost:3000**
 ```bash
 cd ../frontend
 npm install
-npm run dev
+npm install nodemon
+npx nodemon ./server.js
 ```
 The frontend runs on **http://localhost:5173** (by Vite default)
 
